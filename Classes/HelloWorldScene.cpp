@@ -31,7 +31,13 @@ bool HelloWorld::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    CocosAds::getInstance()->init("855310162-C1F5CC-48E8-2B19-34FCDC917");
+    const char* publisherID = "";
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    publisherID = "855310162-C1F5CC-48E8-2B19-34FCDC917";
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    publisherID = "855595180-47D2E7-2298-EAA9-6E1886A1F";
+#endif
+    CocosAds::getInstance()->init(publisherID);
 
     auto labelItemBanner = MenuItemFont::create("Banner广告", [](Ref*){
         Director::getInstance()->replaceScene(Banner::createScene());

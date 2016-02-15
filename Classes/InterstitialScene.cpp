@@ -51,10 +51,16 @@ bool Interstitial::init()
     this->addChild(menu, 1);
     
     
+    const char* placementID = "";
     //展示广告
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    placementID = "855310162o2l2xm";
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    placementID = "855595180o2lox4";
+#endif
     CocosAds::getInstance()->setInterstitialCloseMode(CocosAds::CLOSE_MODE_COUNTDOWN_WITH_CLOSE);
     CocosAds::getInstance()->setInterstitialDisplayTime(7);
-    CocosAds::getInstance()->showInterstitial();
+    CocosAds::getInstance()->showInterstitial(placementID);
     
     return true;
 }

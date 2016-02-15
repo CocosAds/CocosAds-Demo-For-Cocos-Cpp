@@ -52,7 +52,13 @@ bool Banner::init()
     
     
     //展示广告
-    CocosAds::getInstance()->showBanner();
+    const char* placementID = "";
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    placementID = "855310162o2l2x4";
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    placementID = "855595180o2lowu";
+#endif
+    CocosAds::getInstance()->showBanner(placementID);
     
     return true;
 }
