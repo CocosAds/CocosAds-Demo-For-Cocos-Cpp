@@ -19,6 +19,8 @@
 using namespace cocos2d;
 using namespace std;
 
+#pragma mark - CocosAds
+
 CocosAds* CocosAds::_instance = nullptr;
 
 Banner* _banner = nullptr;
@@ -66,6 +68,8 @@ void CocosAds::showBanner(const char* placementID /*= ""*/)
     _banner.center = CGPointMake(eaglview.bounds.size.width/2, _banner.bounds.size.height/2);
     
     [_banner loadAd];
+    
+    [_banner release];
 }
 
 void CocosAds::hideBanner()
@@ -80,6 +84,22 @@ void CocosAds::hideBanner()
         [_banner destroy];
         _banner = nullptr;
     }
+}
+
+void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void ()> &callback)
+{
+}
+
+void CocosAds::setBannerOnReceiveAdFailed(const std::function<void (const std::string &)> &callback)
+{
+}
+
+void CocosAds::setBannerOnPresentScreen(const std::function<void ()> &callback)
+{
+}
+
+void CocosAds::setBannerOnDismissScreen(const std::function<void ()> &callback)
+{
 }
 
 #pragma mark - Interstitial
