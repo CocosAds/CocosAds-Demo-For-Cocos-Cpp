@@ -9,6 +9,10 @@
 #ifndef CocosAds_h
 #define CocosAds_h
 
+#include <functional>
+
+class CocosAdsImpl;
+
 class CocosAds
 {
 public:
@@ -29,6 +33,10 @@ public:
     
     void hideBanner();
     
+    void setBannerOnReceiveAdSuccess(const std::function<void()> &callback);
+    void setBannerOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback);
+    void setBannerOnPresentScreen(const std::function<void()> &callback);
+    void setBannerOnDismissScreen(const std::function<void()> &callback);
     
     //插屏广告
     void setInterstitialCloseMode(int closeMode);
@@ -44,6 +52,29 @@ private:
     CocosAds();
     
     static CocosAds* _instance;
+    
+    CocosAdsImpl* _impl;
+    
+    //Banner callback
+    std::function<void()> _bannerOnReceiveAdSuccess;
+    std::function<void(const std::string& errMsg)> _bannerReceiveAdFailed;
+    std::function<void()> _bannerOnPresentScreen;
+    std::function<void()> _bannerOnDismissScreen;
+    
+    friend class CocosAdsImpl;
+};
+
+class CocosAdsImpl
+{
+public:
+    CocosAdsImpl(CocosAds* cocosads);
+    static void bannerReceiveAdSuccess();
+    static void bannerReceiveAdFailed(const std::string errMsg);
+    static void bannerPresentScreen();
+    static void bannerDismissScreen();
+    
+private:
+    static CocosAds* _cocosads;
 };
 
 

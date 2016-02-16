@@ -8,6 +8,8 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
 import com.cocos.ads.ads.Banner;
+import com.cocos.ads.exception.PBException;
+import com.cocos.ads.listener.AdListener;
 import com.cocos.ads.manager.CocosAdsManager;
 import com.cocos.ads.manager.InterstitialManager;
 
@@ -16,6 +18,11 @@ public class CocosAdsHelper {
 	private static Cocos2dxActivity sCocos2dxActivity = null;
 	private static Banner sBanner = null;
 
+	public static native void bannerReceiveAdSuccess();
+	public static native void bannerReceiveAdFailed(String errMsg);
+	public static native void bannerPresentScreen();
+	public static native void bannerDismissScreen();
+	
 	public static void init(String publisherID) {
 		CocosAdsManager.init(publisherID);
 		CocosAdsHelper.sCocos2dxActivity = (Cocos2dxActivity) Cocos2dxActivity.getContext();
@@ -38,6 +45,30 @@ public class CocosAdsHelper {
 				params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
 				sCocos2dxActivity.addContentView(sBanner, params);
 				sBanner.loadAd();
+				
+				sBanner.setAdListener(new AdListener() {
+					
+					@Override
+					public void onReceiveAd() {
+						bannerReceiveAdSuccess();
+					}
+
+					@Override
+					public void onFailedToReceiveAd(PBException ex) {
+						String errMsg = ex.toString();
+						bannerReceiveAdFailed(errMsg);
+					}
+					
+					@Override
+					public void onPresentScreen() {
+						bannerPresentScreen();
+					}
+					
+					@Override
+					public void onDismissScreen() {
+						bannerDismissScreen();
+					}
+				});
 			}
 		});
 	}

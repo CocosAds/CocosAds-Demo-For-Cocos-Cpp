@@ -67,7 +67,24 @@ bool Banner::init()
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     placementID = "855595180o2lowu";
 #endif
+    
     CocosAds::getInstance()->showBanner(placementID);
+    
+    CocosAds::getInstance()->setBannerOnReceiveAdSuccess([](){
+        log("CocosAdsDemo: 接收Banner广告成功");
+    });
+    
+    CocosAds::getInstance()->setBannerOnReceiveAdFailed([](const std::string errMsg){
+        log("CocosAdsDemo: 接收Banner广告失败: %s", errMsg.c_str());
+    });
+    
+    CocosAds::getInstance()->setBannerOnPresentScreen([](){
+        log("CocosAdsDemo: 显示Banner广告成功");
+    });
+    
+    CocosAds::getInstance()->setBannerOnDismissScreen([](){
+        log("CocosAdsDemo: 移除Banner广告成功");
+    });
     
     return true;
 }

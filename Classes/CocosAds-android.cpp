@@ -17,10 +17,13 @@
 using namespace cocos2d;
 using namespace std;
 
+#pragma mark - CocosAds
+
 CocosAds* CocosAds::_instance = nullptr;
 
 CocosAds::CocosAds()
 {
+    _impl = new CocosAdsImpl(this);
 }
 
 CocosAds* CocosAds::getInstance()
@@ -70,6 +73,26 @@ void CocosAds::hideBanner()
     }
 }
 
+void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void()> &callback)
+{
+    _bannerOnReceiveAdSuccess = callback;
+}
+
+void CocosAds::setBannerOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
+{
+    _bannerReceiveAdFailed = callback;
+}
+
+void CocosAds::setBannerOnPresentScreen(const std::function<void()> &callback)
+{
+    _bannerOnPresentScreen = callback;
+}
+
+void CocosAds::setBannerOnDismissScreen(const std::function<void()> &callback)
+{
+    _bannerOnDismissScreen = callback;
+}
+
 #pragma mark - Interstitial
 
 void CocosAds::showInterstitial(const char* placementID /*= ""*/)
@@ -111,6 +134,69 @@ void CocosAds::hideInterstitial()
     {
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+#pragma mark - JNI
+
+extern "C" {
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerReceiveAdSuccess(JNIEnv *env, jclass) {
+        return CocosAdsImpl::bannerReceiveAdSuccess();
+    }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerReceiveAdFailed(JNIEnv *env, jclass, jstring errMsg) {
+        auto charErrMsg = env->GetStringUTFChars(errMsg, nullptr);
+        std::string err = charErrMsg;
+        env->ReleaseStringUTFChars(errMsg, charErrMsg);
+        return CocosAdsImpl::bannerReceiveAdFailed(err);
+    }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerPresentScreen(JNIEnv *env, jclass) {
+        return CocosAdsImpl::bannerPresentScreen();
+    }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerDismissScreen(JNIEnv *env, jclass) {
+        return CocosAdsImpl::bannerDismissScreen();
+    }
+}
+
+#pragma mark - CocosAdsImpl
+
+CocosAds* CocosAdsImpl::_cocosads = nullptr;
+
+CocosAdsImpl::CocosAdsImpl(CocosAds* cocosads)
+{
+    _cocosads = cocosads;
+}
+
+void CocosAdsImpl::bannerReceiveAdSuccess()
+{
+    if (_cocosads->_bannerOnReceiveAdSuccess)
+    {
+        _cocosads->_bannerOnReceiveAdSuccess();
+    }
+}
+
+void CocosAdsImpl::bannerReceiveAdFailed(const std::string errMsg)
+{
+    if(_cocosads->_bannerReceiveAdFailed)
+    {
+        _cocosads->_bannerReceiveAdFailed(errMsg);
+    }
+}
+void CocosAdsImpl::bannerPresentScreen()
+{
+    if(_cocosads->_bannerOnPresentScreen)
+    {
+        _cocosads->_bannerOnPresentScreen();
+    }
+}
+
+void CocosAdsImpl::bannerDismissScreen()
+{
+    if(_cocosads->_bannerOnDismissScreen)
+    {
+        _cocosads->_bannerOnDismissScreen();
     }
 }
 
