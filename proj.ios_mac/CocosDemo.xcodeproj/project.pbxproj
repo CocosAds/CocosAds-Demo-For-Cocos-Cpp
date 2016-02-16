@@ -60,12 +60,20 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
-		850FC29B1C717E2C00719D8D /* CocosAds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2991C717E2C00719D8D /* CocosAds.cpp */; };
-		850FC29C1C717E2C00719D8D /* CocosAds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2991C717E2C00719D8D /* CocosAds.cpp */; };
+		850FC29C1C717E2C00719D8D /* CocosAds-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2991C717E2C00719D8D /* CocosAds-android.cpp */; };
 		850FC29F1C71B69C00719D8D /* BannerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC29D1C71B69C00719D8D /* BannerScene.cpp */; };
 		850FC2A01C71B69C00719D8D /* BannerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC29D1C71B69C00719D8D /* BannerScene.cpp */; };
 		850FC2A31C71BC4D00719D8D /* InterstitialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2A11C71BC4D00719D8D /* InterstitialScene.cpp */; };
 		850FC2A41C71BC4D00719D8D /* InterstitialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2A11C71BC4D00719D8D /* InterstitialScene.cpp */; };
+		850FC2B01C71DEBC00719D8D /* CocosAdsRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */; };
+		850FC2B11C71DEBC00719D8D /* CocosAdsRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */; };
+		850FC2B31C71DEBC00719D8D /* libCocosAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2AE1C71DEBC00719D8D /* libCocosAds.a */; };
+		850FC2B51C71DF0000719D8D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2B41C71DF0000719D8D /* CoreTelephony.framework */; };
+		850FC2B71C71DF0B00719D8D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2B61C71DF0B00719D8D /* AdSupport.framework */; };
+		850FC2B91C71DF1300719D8D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2B81C71DF1300719D8D /* StoreKit.framework */; };
+		850FC2BB1C71DF2000719D8D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2BA1C71DF2000719D8D /* SystemConfiguration.framework */; };
+		850FC2C61C72D5F600719D8D /* CocosAds-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2C41C72D5F600719D8D /* CocosAds-ios.mm */; };
+		850FC2C71C72D5F600719D8D /* CocosAds-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2C41C72D5F600719D8D /* CocosAds-ios.mm */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -160,12 +168,24 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		850FC2991C717E2C00719D8D /* CocosAds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CocosAds.cpp; sourceTree = "<group>"; };
+		850FC2991C717E2C00719D8D /* CocosAds-android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "CocosAds-android.cpp"; sourceTree = "<group>"; };
 		850FC29A1C717E2C00719D8D /* CocosAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocosAds.h; sourceTree = "<group>"; };
 		850FC29D1C71B69C00719D8D /* BannerScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BannerScene.cpp; sourceTree = "<group>"; };
 		850FC29E1C71B69C00719D8D /* BannerScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScene.h; sourceTree = "<group>"; };
 		850FC2A11C71BC4D00719D8D /* InterstitialScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InterstitialScene.cpp; sourceTree = "<group>"; };
 		850FC2A21C71BC4D00719D8D /* InterstitialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialScene.h; sourceTree = "<group>"; };
+		850FC2A91C71DEBC00719D8D /* ADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADRequest.h; path = ../libCocosAds/ADRequest.h; sourceTree = "<group>"; };
+		850FC2AA1C71DEBC00719D8D /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Banner.h; path = ../libCocosAds/Banner.h; sourceTree = "<group>"; };
+		850FC2AB1C71DEBC00719D8D /* CocosAdsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocosAdsManager.h; path = ../libCocosAds/CocosAdsManager.h; sourceTree = "<group>"; };
+		850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CocosAdsRes.bundle; path = ../libCocosAds/CocosAdsRes.bundle; sourceTree = "<group>"; };
+		850FC2AD1C71DEBC00719D8D /* InterstitialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterstitialManager.h; path = ../libCocosAds/InterstitialManager.h; sourceTree = "<group>"; };
+		850FC2AE1C71DEBC00719D8D /* libCocosAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocosAds.a; path = ../libCocosAds/libCocosAds.a; sourceTree = "<group>"; };
+		850FC2AF1C71DEBC00719D8D /* RequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestError.h; path = ../libCocosAds/RequestError.h; sourceTree = "<group>"; };
+		850FC2B41C71DF0000719D8D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		850FC2B61C71DF0B00719D8D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		850FC2B81C71DF1300719D8D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		850FC2BA1C71DF2000719D8D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		850FC2C41C72D5F600719D8D /* CocosAds-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CocosAds-ios.mm"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -182,6 +202,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850FC2BB1C71DF2000719D8D /* SystemConfiguration.framework in Frameworks */,
+				850FC2B91C71DF1300719D8D /* StoreKit.framework in Frameworks */,
+				850FC2B71C71DF0B00719D8D /* AdSupport.framework in Frameworks */,
+				850FC2B51C71DF0000719D8D /* CoreTelephony.framework in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
@@ -210,6 +234,7 @@
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
 				5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */,
 				5087E76317EB910900C73F5D /* Foundation.framework in Frameworks */,
+				850FC2B31C71DEBC00719D8D /* libCocosAds.a in Frameworks */,
 				5087E76817EB910900C73F5D /* QuartzCore.framework in Frameworks */,
 				5087E76917EB910900C73F5D /* OpenAL.framework in Frameworks */,
 				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
@@ -256,6 +281,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				850FC2A81C71DEAB00719D8D /* libCocosAds */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
@@ -270,6 +296,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				850FC2BA1C71DF2000719D8D /* SystemConfiguration.framework */,
+				850FC2B81C71DF1300719D8D /* StoreKit.framework */,
+				850FC2B61C71DF0B00719D8D /* AdSupport.framework */,
+				850FC2B41C71DF0000719D8D /* CoreTelephony.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
 				8262943D1AAF051F00CB7CF7 /* Security.framework */,
@@ -313,7 +343,8 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
-				850FC2991C717E2C00719D8D /* CocosAds.cpp */,
+				850FC2991C717E2C00719D8D /* CocosAds-android.cpp */,
+				850FC2C41C72D5F600719D8D /* CocosAds-ios.mm */,
 				850FC29A1C717E2C00719D8D /* CocosAds.h */,
 				850FC29D1C71B69C00719D8D /* BannerScene.cpp */,
 				850FC29E1C71B69C00719D8D /* BannerScene.h */,
@@ -370,6 +401,20 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		850FC2A81C71DEAB00719D8D /* libCocosAds */ = {
+			isa = PBXGroup;
+			children = (
+				850FC2A91C71DEBC00719D8D /* ADRequest.h */,
+				850FC2AA1C71DEBC00719D8D /* Banner.h */,
+				850FC2AB1C71DEBC00719D8D /* CocosAdsManager.h */,
+				850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */,
+				850FC2AD1C71DEBC00719D8D /* InterstitialManager.h */,
+				850FC2AE1C71DEBC00719D8D /* libCocosAds.a */,
+				850FC2AF1C71DEBC00719D8D /* RequestError.h */,
+			);
+			name = libCocosAds;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -485,6 +530,7 @@
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				850FC2B01C71DEBC00719D8D /* CocosAdsRes.bundle in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
@@ -501,6 +547,7 @@
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
+				850FC2B11C71DEBC00719D8D /* CocosAdsRes.bundle in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,7 +562,7 @@
 				850FC2A31C71BC4D00719D8D /* InterstitialScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
-				850FC29B1C717E2C00719D8D /* CocosAds.cpp in Sources */,
+				850FC2C61C72D5F600719D8D /* CocosAds-ios.mm in Sources */,
 				850FC29F1C71B69C00719D8D /* BannerScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -528,7 +575,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				850FC2A41C71BC4D00719D8D /* InterstitialScene.cpp in Sources */,
-				850FC29C1C717E2C00719D8D /* CocosAds.cpp in Sources */,
+				850FC2C71C72D5F600719D8D /* CocosAds-ios.mm in Sources */,
+				850FC29C1C717E2C00719D8D /* CocosAds-android.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
@@ -581,6 +629,8 @@
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-force_load",
+					"$(PROJECT_DIR)/../libCocosAds/libCocosAds.a",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -616,6 +666,8 @@
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-force_load",
+					"$(PROJECT_DIR)/../libCocosAds/libCocosAds.a",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -15,7 +15,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/HelloWorldScene.cpp \
                    ../../Classes/BannerScene.cpp \
                    ../../Classes/InterstitialScene.cpp \
-                   ../../Classes/CocosAds.cpp
+                   ../../Classes/CocosAds-android.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
