@@ -255,26 +255,18 @@ void CocosAdsImpl::interstitialDismissScreen()
 
 @implementation BannerDelegateImpl
 
-// Banner广告发出请求
-- (void)csBannerViewRequestAD:(Banner *)csBannerView
+- (void)csBannerViewWillPresentScreen:(Banner *)csBannerView
 {
     CocosAdsImpl::bannerReceiveAdSuccess();
+    CocosAdsImpl::bannerPresentScreen();
 }
 
-// Banner广告展现失败
 - (void)csBannerView:(Banner *)csBannerView
          showAdError:(RequestError *)requestError
 {
     CocosAdsImpl::bannerReceiveAdFailed([requestError.localizedDescription UTF8String]);
 }
 
-// 将要展示Banner广告
-- (void)csBannerViewWillPresentScreen:(Banner *)csBannerView
-{
-    CocosAdsImpl::bannerPresentScreen();
-}
-
-// 移除Banner广告
 - (void)csBannerViewDidDismissScreen:(Banner *)csBannerView
 {
     CocosAdsImpl::bannerDismissScreen();
@@ -286,26 +278,22 @@ void CocosAdsImpl::interstitialDismissScreen()
 
 @implementation InterstitialManagerDelegateImpl
 
-// 弹出广告加载完成
 - (void)csInterstitialDidLoadAd:(InterstitialManager *)csInterstitial
 {
     CocosAdsImpl::interstitialReceiveAdSuccess();
 }
 
-// 弹出广告加载错误
 - (void)csInterstitial:(InterstitialManager *)csInterstitial
 loadAdFailureWithError:(RequestError *)requestError
 {
     CocosAdsImpl::interstitialReceiveAdFailed([requestError.localizedDescription UTF8String]);
 }
 
-// 弹出广告打开完成
 - (void)csInterstitialDidPresentScreen:(InterstitialManager *)csInterstitial
 {
     CocosAdsImpl::interstitialPresentScreen();
 }
 
-// 弹出广告关闭完成
 - (void)csInterstitialDidDismissScreen:(InterstitialManager *)csInterstitial
 {
     CocosAdsImpl::interstitialDismissScreen();

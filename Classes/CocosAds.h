@@ -18,9 +18,9 @@ class CocosAds
 public:
     
     //插屏广告关闭模式
-    const static int CLOSE_MODE_CLOSE = 1;
-    const static int CLOSE_MODE_COUNTDOWN = 2;
-    const static int CLOSE_MODE_COUNTDOWN_WITH_CLOSE = 3;
+    const static int CLOSE_MODE_CLOSE = 0;
+    const static int CLOSE_MODE_COUNTDOWN = 1;
+    const static int CLOSE_MODE_COUNTDOWN_WITH_CLOSE = 2;
     
     //获取CocosAds单例
     static CocosAds* getInstance();
