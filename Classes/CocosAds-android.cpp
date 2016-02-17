@@ -69,6 +69,11 @@ void CocosAds::hideBanner()
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
     }
+    
+    _bannerOnReceiveAdSuccess = nullptr;
+    _bannerReceiveAdFailed = nullptr;
+    _bannerOnPresentScreen = nullptr;
+    _bannerOnDismissScreen = nullptr;
 }
 
 void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void()> &callback)
@@ -133,6 +138,11 @@ void CocosAds::hideInterstitial()
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
     }
+    
+    _interstitialOnReceiveAdSuccess = nullptr;
+    _interstitialReceiveAdFailed = nullptr;
+    _interstitialOnPresentScreen = nullptr;
+    _interstitialOnDismissScreen = nullptr;
 }
 
 void CocosAds::setInterstitialOnReceiveAdSuccess(const std::function<void()> &callback)

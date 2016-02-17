@@ -22,6 +22,9 @@ using namespace std;
 @interface BannerDelegateImpl: NSObject<BannerDelegate>
 @end
 
+@interface InterstitialManagerDelegateImpl : NSObject<InterstitialManagerDelegate>
+@end
+
 #pragma mark - CocosAds
 
 CocosAds* CocosAds::_instance = nullptr;
@@ -29,6 +32,8 @@ CocosAds* CocosAds::_instance = nullptr;
 Banner* _banner = nullptr;
 
 BannerDelegateImpl* _bannerDelegateImpl = nullptr;
+
+InterstitialManagerDelegateImpl* _interstitialManagerDelegateImpl = nullptr;
 
 CocosAds::CocosAds()
 {
@@ -48,6 +53,7 @@ void CocosAds::init(const char* publisherID)
 {
     [CocosAdsManager init: [[NSString alloc] initWithUTF8String: publisherID]];
     _bannerDelegateImpl = [[BannerDelegateImpl alloc] init];
+    _interstitialManagerDelegateImpl = [[InterstitialManagerDelegateImpl alloc] init];
 }
 
 #pragma mark - Banner
@@ -74,7 +80,10 @@ void CocosAds::showBanner(const char* placementID /*= ""*/)
     
     [_banner loadAd];
     
-    [_banner setDelegate: _bannerDelegateImpl];
+    if(_bannerDelegateImpl)
+    {
+        [_banner setDelegate: _bannerDelegateImpl];
+    }
     
     [_banner release];
 }
@@ -91,6 +100,11 @@ void CocosAds::hideBanner()
         [_banner destroy];
         _banner = nullptr;
     }
+    
+    _bannerOnReceiveAdSuccess = nullptr;
+    _bannerReceiveAdFailed = nullptr;
+    _bannerOnPresentScreen = nullptr;
+    _bannerOnDismissScreen = nullptr;
 }
 
 void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void()> &callback)
@@ -118,6 +132,10 @@ void CocosAds::setBannerOnDismissScreen(const std::function<void()> &callback)
 void CocosAds::showInterstitial(const char* placementID /*= ""*/)
 {
     [InterstitialManager setPlacementID:[[NSString alloc] initWithUTF8String: placementID]];
+    if(_interstitialManagerDelegateImpl)
+    {
+        [InterstitialManager setDelegate: _interstitialManagerDelegateImpl];
+    }
     [InterstitialManager show];
 }
 
@@ -134,6 +152,31 @@ void CocosAds::setInterstitialDisplayTime(int seconds)
 void CocosAds::hideInterstitial()
 {
     [InterstitialManager destroy];
+    
+    _interstitialOnReceiveAdSuccess = nullptr;
+    _interstitialReceiveAdFailed = nullptr;
+    _interstitialOnPresentScreen = nullptr;
+    _interstitialOnDismissScreen = nullptr;
+}
+
+void CocosAds::setInterstitialOnReceiveAdSuccess(const std::function<void()> &callback)
+{
+    _interstitialOnReceiveAdSuccess = callback;
+}
+
+void CocosAds::setInterstitialOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
+{
+    _interstitialReceiveAdFailed = callback;
+}
+
+void CocosAds::setInterstitialOnPresentScreen(const std::function<void()> &callback)
+{
+    _interstitialOnPresentScreen = callback;
+}
+
+void CocosAds::setInterstitialOnDismissScreen(const std::function<void()> &callback)
+{
+    _interstitialOnDismissScreen = callback;
 }
 
 #pragma mark - CocosAdsImpl
@@ -176,6 +219,37 @@ void CocosAdsImpl::bannerDismissScreen()
     }
 }
 
+void CocosAdsImpl::interstitialReceiveAdSuccess()
+{
+    if (_cocosads->_interstitialOnReceiveAdSuccess)
+    {
+        _cocosads->_interstitialOnReceiveAdSuccess();
+    }
+}
+
+void CocosAdsImpl::interstitialReceiveAdFailed(const std::string errMsg)
+{
+    if(_cocosads->_interstitialReceiveAdFailed)
+    {
+        _cocosads->_interstitialReceiveAdFailed(errMsg);
+    }
+}
+void CocosAdsImpl::interstitialPresentScreen()
+{
+    if(_cocosads->_interstitialOnPresentScreen)
+    {
+        _cocosads->_interstitialOnPresentScreen();
+    }
+}
+
+void CocosAdsImpl::interstitialDismissScreen()
+{
+    if(_cocosads->_interstitialOnDismissScreen)
+    {
+        _cocosads->_interstitialOnDismissScreen();
+    }
+}
+
 
 #pragma mark - BannerDelegate
 
@@ -209,6 +283,35 @@ void CocosAdsImpl::bannerDismissScreen()
 @end
 
 #pragma mark - InterstitialDelegate
+
+@implementation InterstitialManagerDelegateImpl
+
+// 弹出广告加载完成
+- (void)csInterstitialDidLoadAd:(InterstitialManager *)csInterstitial
+{
+    CocosAdsImpl::interstitialReceiveAdSuccess();
+}
+
+// 弹出广告加载错误
+- (void)csInterstitial:(InterstitialManager *)csInterstitial
+loadAdFailureWithError:(RequestError *)requestError
+{
+    CocosAdsImpl::interstitialReceiveAdFailed([requestError.localizedDescription UTF8String]);
+}
+
+// 弹出广告打开完成
+- (void)csInterstitialDidPresentScreen:(InterstitialManager *)csInterstitial
+{
+    CocosAdsImpl::interstitialPresentScreen();
+}
+
+// 弹出广告关闭完成
+- (void)csInterstitialDidDismissScreen:(InterstitialManager *)csInterstitial
+{
+    CocosAdsImpl::interstitialDismissScreen();
+}
+
+@end
 
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_IOS
