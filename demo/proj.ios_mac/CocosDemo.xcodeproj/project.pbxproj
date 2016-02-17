@@ -60,7 +60,6 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
-		850FC29C1C717E2C00719D8D /* CocosAds-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2991C717E2C00719D8D /* CocosAds-android.cpp */; };
 		850FC29F1C71B69C00719D8D /* BannerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC29D1C71B69C00719D8D /* BannerScene.cpp */; };
 		850FC2A01C71B69C00719D8D /* BannerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC29D1C71B69C00719D8D /* BannerScene.cpp */; };
 		850FC2A31C71BC4D00719D8D /* InterstitialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2A11C71BC4D00719D8D /* InterstitialScene.cpp */; };
@@ -576,7 +575,6 @@
 			files = (
 				850FC2A41C71BC4D00719D8D /* InterstitialScene.cpp in Sources */,
 				850FC2C71C72D5F600719D8D /* CocosAds-ios.mm in Sources */,
-				850FC29C1C717E2C00719D8D /* CocosAds-android.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
