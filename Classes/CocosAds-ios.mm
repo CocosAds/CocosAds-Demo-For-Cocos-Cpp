@@ -101,30 +101,12 @@ void CocosAds::hideBanner()
         _banner = nullptr;
     }
     
-    _bannerOnReceiveAdSuccess = nullptr;
-    _bannerReceiveAdFailed = nullptr;
-    _bannerOnPresentScreen = nullptr;
-    _bannerOnDismissScreen = nullptr;
+    _bannerAdsResultCallback = nullptr;
 }
 
-void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void()> &callback)
+void CocosAds::setOnBannerAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
-    _bannerOnReceiveAdSuccess = callback;
-}
-
-void CocosAds::setBannerOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
-{
-    _bannerReceiveAdFailed = callback;
-}
-
-void CocosAds::setBannerOnPresentScreen(const std::function<void()> &callback)
-{
-    _bannerOnPresentScreen = callback;
-}
-
-void CocosAds::setBannerOnDismissScreen(const std::function<void()> &callback)
-{
-    _bannerOnDismissScreen = callback;
+    _bannerAdsResultCallback = callback;
 }
 
 #pragma mark - Interstitial
@@ -153,30 +135,12 @@ void CocosAds::hideInterstitial()
 {
     [InterstitialManager destroy];
     
-    _interstitialOnReceiveAdSuccess = nullptr;
-    _interstitialReceiveAdFailed = nullptr;
-    _interstitialOnPresentScreen = nullptr;
-    _interstitialOnDismissScreen = nullptr;
+    _interstitialAdsResultCallback = nullptr;
 }
 
-void CocosAds::setInterstitialOnReceiveAdSuccess(const std::function<void()> &callback)
+void CocosAds::setOnInterstitialAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
-    _interstitialOnReceiveAdSuccess = callback;
-}
-
-void CocosAds::setInterstitialOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
-{
-    _interstitialReceiveAdFailed = callback;
-}
-
-void CocosAds::setInterstitialOnPresentScreen(const std::function<void()> &callback)
-{
-    _interstitialOnPresentScreen = callback;
-}
-
-void CocosAds::setInterstitialOnDismissScreen(const std::function<void()> &callback)
-{
-    _interstitialOnDismissScreen = callback;
+    _interstitialAdsResultCallback = callback;
 }
 
 #pragma mark - CocosAdsImpl
@@ -188,65 +152,19 @@ CocosAdsImpl::CocosAdsImpl(CocosAds* cocosads)
     _cocosads = cocosads;
 }
 
-void CocosAdsImpl::bannerReceiveAdSuccess()
+void CocosAdsImpl::bannerAdsResult(CocosAdsResultCode code, std::string result)
 {
-    if (_cocosads->_bannerOnReceiveAdSuccess)
+    if(_cocosads->_bannerAdsResultCallback)
     {
-        _cocosads->_bannerOnReceiveAdSuccess();
+        _cocosads->_bannerAdsResultCallback(code, result);
     }
 }
 
-void CocosAdsImpl::bannerReceiveAdFailed(const std::string errMsg)
+void CocosAdsImpl::interstitialAdsResult(CocosAdsResultCode code, std::string result)
 {
-    if(_cocosads->_bannerReceiveAdFailed)
+    if (_cocosads->_interstitialAdsResultCallback)
     {
-        _cocosads->_bannerReceiveAdFailed(errMsg);
-    }
-}
-void CocosAdsImpl::bannerPresentScreen()
-{
-    if(_cocosads->_bannerOnPresentScreen)
-    {
-        _cocosads->_bannerOnPresentScreen();
-    }
-}
-
-void CocosAdsImpl::bannerDismissScreen()
-{
-    if(_cocosads->_bannerOnDismissScreen)
-    {
-        _cocosads->_bannerOnDismissScreen();
-    }
-}
-
-void CocosAdsImpl::interstitialReceiveAdSuccess()
-{
-    if (_cocosads->_interstitialOnReceiveAdSuccess)
-    {
-        _cocosads->_interstitialOnReceiveAdSuccess();
-    }
-}
-
-void CocosAdsImpl::interstitialReceiveAdFailed(const std::string errMsg)
-{
-    if(_cocosads->_interstitialReceiveAdFailed)
-    {
-        _cocosads->_interstitialReceiveAdFailed(errMsg);
-    }
-}
-void CocosAdsImpl::interstitialPresentScreen()
-{
-    if(_cocosads->_interstitialOnPresentScreen)
-    {
-        _cocosads->_interstitialOnPresentScreen();
-    }
-}
-
-void CocosAdsImpl::interstitialDismissScreen()
-{
-    if(_cocosads->_interstitialOnDismissScreen)
-    {
-        _cocosads->_interstitialOnDismissScreen();
+        _cocosads->_interstitialAdsResultCallback(code, result);
     }
 }
 
@@ -257,19 +175,19 @@ void CocosAdsImpl::interstitialDismissScreen()
 
 - (void)csBannerViewWillPresentScreen:(Banner *)csBannerView
 {
-    CocosAdsImpl::bannerReceiveAdSuccess();
-    CocosAdsImpl::bannerPresentScreen();
+    CocosAdsImpl::bannerAdsResult(kAdsReceiveSuccess, "接收Banner广告成功");
+    CocosAdsImpl::bannerAdsResult(kAdsPresentScreen, "显示Banner广告");
 }
 
 - (void)csBannerView:(Banner *)csBannerView
          showAdError:(RequestError *)requestError
 {
-    CocosAdsImpl::bannerReceiveAdFailed([requestError.localizedDescription UTF8String]);
+    CocosAdsImpl::bannerAdsResult(kAdsReceiveFailed, [requestError.localizedDescription UTF8String]);
 }
 
 - (void)csBannerViewDidDismissScreen:(Banner *)csBannerView
 {
-    CocosAdsImpl::bannerDismissScreen();
+    CocosAdsImpl::bannerAdsResult(kAdsDismissScreen, "移除Banner广告");
 }
 
 @end
@@ -280,23 +198,23 @@ void CocosAdsImpl::interstitialDismissScreen()
 
 - (void)csInterstitialDidLoadAd:(InterstitialManager *)csInterstitial
 {
-    CocosAdsImpl::interstitialReceiveAdSuccess();
+    CocosAdsImpl::interstitialAdsResult(kAdsReceiveSuccess, "接收插屏广告成功");
 }
 
 - (void)csInterstitial:(InterstitialManager *)csInterstitial
 loadAdFailureWithError:(RequestError *)requestError
 {
-    CocosAdsImpl::interstitialReceiveAdFailed([requestError.localizedDescription UTF8String]);
+    CocosAdsImpl::interstitialAdsResult(kAdsReceiveFailed, [requestError.localizedDescription UTF8String]);
 }
 
 - (void)csInterstitialDidPresentScreen:(InterstitialManager *)csInterstitial
 {
-    CocosAdsImpl::interstitialPresentScreen();
+    CocosAdsImpl::interstitialAdsResult(kAdsPresentScreen, "显示插屏广告");
 }
 
 - (void)csInterstitialDidDismissScreen:(InterstitialManager *)csInterstitial
 {
-    CocosAdsImpl::interstitialDismissScreen();
+    CocosAdsImpl::interstitialAdsResult(kAdsDismissScreen, "移除插屏广告");
 }
 
 @end

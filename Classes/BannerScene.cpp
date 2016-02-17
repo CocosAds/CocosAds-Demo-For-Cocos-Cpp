@@ -70,20 +70,23 @@ bool Banner::init()
     CocosAds::getInstance()->showBanner(placementID);
     
     //回调（可选）
-    CocosAds::getInstance()->setBannerOnReceiveAdSuccess([](){
-        log("CocosAdsDemo: 接收Banner广告成功");
-    });
-    
-    CocosAds::getInstance()->setBannerOnReceiveAdFailed([](const std::string errMsg){
-        log("CocosAdsDemo: 接收Banner广告失败: %s", errMsg.c_str());
-    });
-    
-    CocosAds::getInstance()->setBannerOnPresentScreen([](){
-        log("CocosAdsDemo: 显示Banner广告成功");
-    });
-    
-    CocosAds::getInstance()->setBannerOnDismissScreen([](){
-        log("CocosAdsDemo: 移除Banner广告成功");
+    CocosAds::getInstance()->setOnBannerAdsResult([](CocosAdsResultCode code, std::string result){
+        switch (code) {
+            case kAdsReceiveSuccess:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            case kAdsReceiveFailed:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            case kAdsPresentScreen:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            case kAdsDismissScreen:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            default:
+                break;
+        }
     });
     
     return true;

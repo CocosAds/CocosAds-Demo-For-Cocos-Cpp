@@ -72,22 +72,24 @@ bool Interstitial::init()
     CocosAds::getInstance()->showInterstitial(placementID);
     
     //回调（可选）
-    CocosAds::getInstance()->setInterstitialOnReceiveAdSuccess([](){
-        log("CocosAdsDemo: 接收插屏广告成功");
+    CocosAds::getInstance()->setOnInterstitialAdsResult([](CocosAdsResultCode code, std::string result){
+        switch (code) {
+            case kAdsReceiveSuccess:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            case kAdsReceiveFailed:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            case kAdsPresentScreen:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            case kAdsDismissScreen:
+                log("CocosAdsDemo: %s", result.c_str());
+                break;
+            default:
+                break;
+        }
     });
-    
-    CocosAds::getInstance()->setInterstitialOnReceiveAdFailed([](const std::string errMsg){
-        log("CocosAdsDemo: 接收插屏广告失败: %s", errMsg.c_str());
-    });
-    
-    CocosAds::getInstance()->setInterstitialOnPresentScreen([](){
-        log("CocosAdsDemo: 显示插屏广告成功");
-    });
-    
-    CocosAds::getInstance()->setInterstitialOnDismissScreen([](){
-        log("CocosAdsDemo: 移除插屏广告成功");
-    });
-
     
     return true;
 }
