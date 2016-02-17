@@ -15,18 +15,18 @@ import com.cocos.ads.manager.InterstitialManager;
 
 public class CocosAdsHelper {
 
+	private enum CocosAdsResultCode{
+	    kAdsReceiveSuccess,
+	    kAdsReceiveFailed,
+	    kAdsPresentScreen,
+	    kAdsDismissScreen
+	}
+	
 	private static Cocos2dxActivity sCocos2dxActivity = null;
 	private static Banner sBanner = null;
 
-	public static native void bannerReceiveAdSuccess();
-	public static native void bannerReceiveAdFailed(String errMsg);
-	public static native void bannerPresentScreen();
-	public static native void bannerDismissScreen();
-	
-	public static native void interstitialReceiveAdSuccess();
-	public static native void interstitialReceiveAdFailed(String errMsg);
-	public static native void interstitialPresentScreen();
-	public static native void interstitialDismissScreen();
+	public static native void bannerAdsResult(CocosAdsResultCode code, String result);
+	public static native void interstitialAdsResult(CocosAdsResultCode code, String result);
 	
 	public static void init(String publisherID) {
 		CocosAdsManager.init(publisherID);
@@ -55,23 +55,23 @@ public class CocosAdsHelper {
 					
 					@Override
 					public void onReceiveAd() {
-						bannerReceiveAdSuccess();
+						bannerAdsResult(CocosAdsResultCode.kAdsReceiveSuccess, "接收Banner广告成功");
 					}
 
 					@Override
 					public void onFailedToReceiveAd(PBException ex) {
 						String errMsg = ex.toString();
-						bannerReceiveAdFailed(errMsg);
+						bannerAdsResult(CocosAdsResultCode.kAdsReceiveFailed, errMsg);
 					}
 					
 					@Override
 					public void onPresentScreen() {
-						bannerPresentScreen();
+						bannerAdsResult(CocosAdsResultCode.kAdsPresentScreen, "显示Banner广告");
 					}
 					
 					@Override
 					public void onDismissScreen() {
-						bannerDismissScreen();
+						bannerAdsResult(CocosAdsResultCode.kAdsDismissScreen, "移除Banner广告");
 					}
 				});
 			}
@@ -106,23 +106,23 @@ public class CocosAdsHelper {
 					
 					@Override
 					public void onReceiveAd() {
-						interstitialReceiveAdSuccess();
+						interstitialAdsResult(CocosAdsResultCode.kAdsReceiveSuccess, "接收插屏广告成功");
 					}
 
 					@Override
 					public void onFailedToReceiveAd(PBException ex) {
 						String errMsg = ex.toString();
-						interstitialReceiveAdFailed(errMsg);
+						interstitialAdsResult(CocosAdsResultCode.kAdsReceiveFailed, errMsg);
 					}
 					
 					@Override
 					public void onPresentScreen() {
-						interstitialPresentScreen();
+						interstitialAdsResult(CocosAdsResultCode.kAdsPresentScreen, "显示插屏广告");
 					}
 					
 					@Override
 					public void onDismissScreen() {
-						interstitialDismissScreen();
+						interstitialAdsResult(CocosAdsResultCode.kAdsDismissScreen, "移除插屏广告");
 					}
 				});
 			}
@@ -145,5 +145,4 @@ public class CocosAdsHelper {
 			}
 		});
 	}
-
 }

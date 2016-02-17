@@ -70,31 +70,14 @@ void CocosAds::hideBanner()
         t.env->DeleteLocalRef(t.classID);
     }
     
-    _bannerOnReceiveAdSuccess = nullptr;
-    _bannerReceiveAdFailed = nullptr;
-    _bannerOnPresentScreen = nullptr;
-    _bannerOnDismissScreen = nullptr;
+    _bannerAdsResultCallback = nullptr;
 }
 
-void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void()> &callback)
+void CocosAds::setOnBannerAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
-    _bannerOnReceiveAdSuccess = callback;
+    _bannerAdsResultCallback = callback;
 }
 
-void CocosAds::setBannerOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
-{
-    _bannerReceiveAdFailed = callback;
-}
-
-void CocosAds::setBannerOnPresentScreen(const std::function<void()> &callback)
-{
-    _bannerOnPresentScreen = callback;
-}
-
-void CocosAds::setBannerOnDismissScreen(const std::function<void()> &callback)
-{
-    _bannerOnDismissScreen = callback;
-}
 
 #pragma mark - Interstitial
 
@@ -139,73 +122,69 @@ void CocosAds::hideInterstitial()
         t.env->DeleteLocalRef(t.classID);
     }
     
-    _interstitialOnReceiveAdSuccess = nullptr;
-    _interstitialReceiveAdFailed = nullptr;
-    _interstitialOnPresentScreen = nullptr;
-    _interstitialOnDismissScreen = nullptr;
+    _interstitialAdsResultCallback = nullptr;
 }
 
-void CocosAds::setInterstitialOnReceiveAdSuccess(const std::function<void()> &callback)
+void CocosAds::setOnInterstitialAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
-    _interstitialOnReceiveAdSuccess = callback;
+    _interstitialAdsResultCallback = callback;
 }
 
-void CocosAds::setInterstitialOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
-{
-    _interstitialReceiveAdFailed = callback;
-}
-
-void CocosAds::setInterstitialOnPresentScreen(const std::function<void()> &callback)
-{
-    _interstitialOnPresentScreen = callback;
-}
-
-void CocosAds::setInterstitialOnDismissScreen(const std::function<void()> &callback)
-{
-    _interstitialOnDismissScreen = callback;
-}
 
 #pragma mark - JNI
 
 extern "C" {
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerReceiveAdSuccess(JNIEnv *env, jclass) {
-        return CocosAdsImpl::bannerReceiveAdSuccess();
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerAdsResult(JNIEnv *env, jclass, jobject jcode, jstring jresult) {
+        
+        //获取enum:code
+        jclass enumclass= env->GetObjectClass(jcode);
+        jmethodID getVal = env->GetMethodID(enumclass, "name", "()Ljava/lang/String;");
+        jstring value = (jstring)env->CallObjectMethod(jcode, getVal);
+        const char * valueNative = env->GetStringUTFChars(value, 0);
+        CocosAdsResultCode code;
+        if (strcmp(valueNative, "kAdsReceiveSuccess") == 0) {
+            code = kAdsReceiveSuccess;
+        }else if( strcmp(valueNative, "kAdsReceiveFailed") == 0) {
+            code = kAdsReceiveFailed;
+        }else if(strcmp(valueNative, "kAdsPresentScreen") == 0) {
+            code = kAdsPresentScreen;
+        }else if(strcmp(valueNative, "kAdsDismissScreen") == 0) {
+            code = kAdsDismissScreen;
+        }
+        
+        //获取std::string result
+        auto charResult = env->GetStringUTFChars(jresult, nullptr);
+        std::string result = charResult;
+        env->ReleaseStringUTFChars(jresult, charResult);
+        
+        return CocosAdsImpl::bannerAdsResult(code, result);
     }
     
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerReceiveAdFailed(JNIEnv *env, jclass, jstring errMsg) {
-        auto charErrMsg = env->GetStringUTFChars(errMsg, nullptr);
-        std::string err = charErrMsg;
-        env->ReleaseStringUTFChars(errMsg, charErrMsg);
-        return CocosAdsImpl::bannerReceiveAdFailed(err);
-    }
-    
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerPresentScreen(JNIEnv *env, jclass) {
-        return CocosAdsImpl::bannerPresentScreen();
-    }
-    
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerDismissScreen(JNIEnv *env, jclass) {
-        return CocosAdsImpl::bannerDismissScreen();
-    }
-    
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialReceiveAdSuccess(JNIEnv *env, jclass) {
-        return CocosAdsImpl::interstitialReceiveAdSuccess();
-    }
-    
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialReceiveAdFailed(JNIEnv *env, jclass, jstring errMsg) {
-        auto charErrMsg = env->GetStringUTFChars(errMsg, nullptr);
-        std::string err = charErrMsg;
-        env->ReleaseStringUTFChars(errMsg, charErrMsg);
-        return CocosAdsImpl::interstitialReceiveAdFailed(err);
-    }
-    
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialPresentScreen(JNIEnv *env, jclass) {
-        return CocosAdsImpl::interstitialPresentScreen();
-    }
-    
-    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialDismissScreen(JNIEnv *env, jclass) {
-        return CocosAdsImpl::interstitialDismissScreen();
-    }
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialAdsResult(JNIEnv *env, jclass, jobject jcode, jstring jresult) {
 
+        //获取enum:code
+        jclass enumclass= env->GetObjectClass(jcode);
+        jmethodID getVal = env->GetMethodID(enumclass, "name", "()Ljava/lang/String;");
+        jstring value = (jstring)env->CallObjectMethod(jcode, getVal);
+        const char * valueNative = env->GetStringUTFChars(value, 0);
+        CocosAdsResultCode code;
+        if (strcmp(valueNative, "kAdsReceiveSuccess") == 0) {
+            code = kAdsReceiveSuccess;
+        }else if( strcmp(valueNative, "kAdsReceiveFailed") == 0) {
+            code = kAdsReceiveFailed;
+        }else if(strcmp(valueNative, "kAdsPresentScreen") == 0) {
+            code = kAdsPresentScreen;
+        }else if(strcmp(valueNative, "kAdsDismissScreen") == 0) {
+            code = kAdsDismissScreen;
+        }
+        
+        //获取std::string result
+        auto charResult = env->GetStringUTFChars(jresult, nullptr);
+        std::string result = charResult;
+        env->ReleaseStringUTFChars(jresult, charResult);
+        
+        return CocosAdsImpl::interstitialAdsResult(code, result);
+    }
 }
 
 #pragma mark - CocosAdsImpl
@@ -217,65 +196,19 @@ CocosAdsImpl::CocosAdsImpl(CocosAds* cocosads)
     _cocosads = cocosads;
 }
 
-void CocosAdsImpl::bannerReceiveAdSuccess()
+void CocosAdsImpl::bannerAdsResult(CocosAdsResultCode code, std::string result)
 {
-    if (_cocosads->_bannerOnReceiveAdSuccess)
+    if(_cocosads->_bannerAdsResultCallback)
     {
-        _cocosads->_bannerOnReceiveAdSuccess();
+        _cocosads->_bannerAdsResultCallback(code, result);
     }
 }
 
-void CocosAdsImpl::bannerReceiveAdFailed(const std::string errMsg)
+void CocosAdsImpl::interstitialAdsResult(CocosAdsResultCode code, std::string result)
 {
-    if(_cocosads->_bannerReceiveAdFailed)
+    if (_cocosads->_interstitialAdsResultCallback)
     {
-        _cocosads->_bannerReceiveAdFailed(errMsg);
-    }
-}
-void CocosAdsImpl::bannerPresentScreen()
-{
-    if(_cocosads->_bannerOnPresentScreen)
-    {
-        _cocosads->_bannerOnPresentScreen();
-    }
-}
-
-void CocosAdsImpl::bannerDismissScreen()
-{
-    if(_cocosads->_bannerOnDismissScreen)
-    {
-        _cocosads->_bannerOnDismissScreen();
-    }
-}
-
-void CocosAdsImpl::interstitialReceiveAdSuccess()
-{
-    if (_cocosads->_interstitialOnReceiveAdSuccess)
-    {
-        _cocosads->_interstitialOnReceiveAdSuccess();
-    }
-}
-
-void CocosAdsImpl::interstitialReceiveAdFailed(const std::string errMsg)
-{
-    if(_cocosads->_interstitialReceiveAdFailed)
-    {
-        _cocosads->_interstitialReceiveAdFailed(errMsg);
-    }
-}
-void CocosAdsImpl::interstitialPresentScreen()
-{
-    if(_cocosads->_interstitialOnPresentScreen)
-    {
-        _cocosads->_interstitialOnPresentScreen();
-    }
-}
-
-void CocosAdsImpl::interstitialDismissScreen()
-{
-    if(_cocosads->_interstitialOnDismissScreen)
-    {
-        _cocosads->_interstitialOnDismissScreen();
+        _cocosads->_interstitialAdsResultCallback(code, result);
     }
 }
 
