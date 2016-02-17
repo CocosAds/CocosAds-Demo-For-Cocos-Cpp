@@ -135,6 +135,26 @@ void CocosAds::hideInterstitial()
     }
 }
 
+void CocosAds::setInterstitialOnReceiveAdSuccess(const std::function<void()> &callback)
+{
+    _interstitialOnReceiveAdSuccess = callback;
+}
+
+void CocosAds::setInterstitialOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
+{
+    _interstitialReceiveAdFailed = callback;
+}
+
+void CocosAds::setInterstitialOnPresentScreen(const std::function<void()> &callback)
+{
+    _interstitialOnPresentScreen = callback;
+}
+
+void CocosAds::setInterstitialOnDismissScreen(const std::function<void()> &callback)
+{
+    _interstitialOnDismissScreen = callback;
+}
+
 #pragma mark - JNI
 
 extern "C" {
@@ -156,6 +176,26 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_bannerDismissScreen(JNIEnv *env, jclass) {
         return CocosAdsImpl::bannerDismissScreen();
     }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialReceiveAdSuccess(JNIEnv *env, jclass) {
+        return CocosAdsImpl::interstitialReceiveAdSuccess();
+    }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialReceiveAdFailed(JNIEnv *env, jclass, jstring errMsg) {
+        auto charErrMsg = env->GetStringUTFChars(errMsg, nullptr);
+        std::string err = charErrMsg;
+        env->ReleaseStringUTFChars(errMsg, charErrMsg);
+        return CocosAdsImpl::interstitialReceiveAdFailed(err);
+    }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialPresentScreen(JNIEnv *env, jclass) {
+        return CocosAdsImpl::interstitialPresentScreen();
+    }
+    
+    JNIEXPORT void JNICALL Java_com_cocos_ads_helper_CocosAdsHelper_interstitialDismissScreen(JNIEnv *env, jclass) {
+        return CocosAdsImpl::interstitialDismissScreen();
+    }
+
 }
 
 #pragma mark - CocosAdsImpl
@@ -195,6 +235,37 @@ void CocosAdsImpl::bannerDismissScreen()
     if(_cocosads->_bannerOnDismissScreen)
     {
         _cocosads->_bannerOnDismissScreen();
+    }
+}
+
+void CocosAdsImpl::interstitialReceiveAdSuccess()
+{
+    if (_cocosads->_interstitialOnReceiveAdSuccess)
+    {
+        _cocosads->_interstitialOnReceiveAdSuccess();
+    }
+}
+
+void CocosAdsImpl::interstitialReceiveAdFailed(const std::string errMsg)
+{
+    if(_cocosads->_interstitialReceiveAdFailed)
+    {
+        _cocosads->_interstitialReceiveAdFailed(errMsg);
+    }
+}
+void CocosAdsImpl::interstitialPresentScreen()
+{
+    if(_cocosads->_interstitialOnPresentScreen)
+    {
+        _cocosads->_interstitialOnPresentScreen();
+    }
+}
+
+void CocosAdsImpl::interstitialDismissScreen()
+{
+    if(_cocosads->_interstitialOnDismissScreen)
+    {
+        _cocosads->_interstitialOnDismissScreen();
     }
 }
 

@@ -23,6 +23,11 @@ public class CocosAdsHelper {
 	public static native void bannerPresentScreen();
 	public static native void bannerDismissScreen();
 	
+	public static native void interstitialReceiveAdSuccess();
+	public static native void interstitialReceiveAdFailed(String errMsg);
+	public static native void interstitialPresentScreen();
+	public static native void interstitialDismissScreen();
+	
 	public static void init(String publisherID) {
 		CocosAdsManager.init(publisherID);
 		CocosAdsHelper.sCocos2dxActivity = (Cocos2dxActivity) Cocos2dxActivity.getContext();
@@ -97,6 +102,29 @@ public class CocosAdsHelper {
 			public void run() {
 				InterstitialManager.setPlacementID(placementID);
 				InterstitialManager.show(sCocos2dxActivity);
+				InterstitialManager.setAdListener(new AdListener() {
+					
+					@Override
+					public void onReceiveAd() {
+						interstitialReceiveAdSuccess();
+					}
+
+					@Override
+					public void onFailedToReceiveAd(PBException ex) {
+						String errMsg = ex.toString();
+						interstitialReceiveAdFailed(errMsg);
+					}
+					
+					@Override
+					public void onPresentScreen() {
+						interstitialPresentScreen();
+					}
+					
+					@Override
+					public void onDismissScreen() {
+						interstitialDismissScreen();
+					}
+				});
 			}
 		});
 	}
