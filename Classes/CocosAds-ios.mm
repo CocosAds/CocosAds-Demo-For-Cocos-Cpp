@@ -19,14 +19,20 @@
 using namespace cocos2d;
 using namespace std;
 
+@interface BannerDelegateImpl: NSObject<BannerDelegate>
+@end
+
 #pragma mark - CocosAds
 
 CocosAds* CocosAds::_instance = nullptr;
 
 Banner* _banner = nullptr;
 
+BannerDelegateImpl* _bannerDelegateImpl = nullptr;
+
 CocosAds::CocosAds()
 {
+    _impl = new CocosAdsImpl(this);
 }
 
 CocosAds* CocosAds::getInstance()
@@ -38,11 +44,10 @@ CocosAds* CocosAds::getInstance()
     return _instance;
 }
 
-#pragma mark - CocosAds
-
 void CocosAds::init(const char* publisherID)
 {
     [CocosAdsManager init: [[NSString alloc] initWithUTF8String: publisherID]];
+    _bannerDelegateImpl = [[BannerDelegateImpl alloc] init];
 }
 
 #pragma mark - Banner
@@ -69,6 +74,8 @@ void CocosAds::showBanner(const char* placementID /*= ""*/)
     
     [_banner loadAd];
     
+    [_banner setDelegate: _bannerDelegateImpl];
+    
     [_banner release];
 }
 
@@ -86,20 +93,24 @@ void CocosAds::hideBanner()
     }
 }
 
-void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void ()> &callback)
+void CocosAds::setBannerOnReceiveAdSuccess(const std::function<void()> &callback)
 {
+    _bannerOnReceiveAdSuccess = callback;
 }
 
-void CocosAds::setBannerOnReceiveAdFailed(const std::function<void (const std::string &)> &callback)
+void CocosAds::setBannerOnReceiveAdFailed(const std::function<void(const std::string& errMsg)> &callback)
 {
+    _bannerReceiveAdFailed = callback;
 }
 
-void CocosAds::setBannerOnPresentScreen(const std::function<void ()> &callback)
+void CocosAds::setBannerOnPresentScreen(const std::function<void()> &callback)
 {
+    _bannerOnPresentScreen = callback;
 }
 
-void CocosAds::setBannerOnDismissScreen(const std::function<void ()> &callback)
+void CocosAds::setBannerOnDismissScreen(const std::function<void()> &callback)
 {
+    _bannerOnDismissScreen = callback;
 }
 
 #pragma mark - Interstitial
@@ -124,4 +135,80 @@ void CocosAds::hideInterstitial()
 {
     [InterstitialManager destroy];
 }
+
+#pragma mark - CocosAdsImpl
+
+CocosAds* CocosAdsImpl::_cocosads = nullptr;
+
+CocosAdsImpl::CocosAdsImpl(CocosAds* cocosads)
+{
+    _cocosads = cocosads;
+}
+
+void CocosAdsImpl::bannerReceiveAdSuccess()
+{
+    if (_cocosads->_bannerOnReceiveAdSuccess)
+    {
+        _cocosads->_bannerOnReceiveAdSuccess();
+    }
+}
+
+void CocosAdsImpl::bannerReceiveAdFailed(const std::string errMsg)
+{
+    if(_cocosads->_bannerReceiveAdFailed)
+    {
+        _cocosads->_bannerReceiveAdFailed(errMsg);
+    }
+}
+void CocosAdsImpl::bannerPresentScreen()
+{
+    if(_cocosads->_bannerOnPresentScreen)
+    {
+        _cocosads->_bannerOnPresentScreen();
+    }
+}
+
+void CocosAdsImpl::bannerDismissScreen()
+{
+    if(_cocosads->_bannerOnDismissScreen)
+    {
+        _cocosads->_bannerOnDismissScreen();
+    }
+}
+
+
+#pragma mark - BannerDelegate
+
+@implementation BannerDelegateImpl
+
+// Banner广告发出请求
+- (void)csBannerViewRequestAD:(Banner *)csBannerView
+{
+    CocosAdsImpl::bannerReceiveAdSuccess();
+}
+
+// Banner广告展现失败
+- (void)csBannerView:(Banner *)csBannerView
+         showAdError:(RequestError *)requestError
+{
+    CocosAdsImpl::bannerReceiveAdFailed([requestError.localizedDescription UTF8String]);
+}
+
+// 将要展示Banner广告
+- (void)csBannerViewWillPresentScreen:(Banner *)csBannerView
+{
+    CocosAdsImpl::bannerPresentScreen();
+}
+
+// 移除Banner广告
+- (void)csBannerViewDidDismissScreen:(Banner *)csBannerView
+{
+    CocosAdsImpl::bannerDismissScreen();
+}
+
+@end
+
+#pragma mark - InterstitialDelegate
+
+
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_IOS

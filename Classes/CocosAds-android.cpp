@@ -35,8 +35,6 @@ CocosAds* CocosAds::getInstance()
     return _instance;
 }
 
-#pragma mark - CocosAds
-
 void CocosAds::init(const char* publisherID)
 {
     JniMethodInfo t;
