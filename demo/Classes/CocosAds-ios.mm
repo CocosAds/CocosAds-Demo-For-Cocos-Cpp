@@ -136,9 +136,7 @@ void CocosAds::setInterstitialDisplayTime(int seconds)
 
 void CocosAds::hideInterstitial()
 {
-    [InterstitialManager destroy];
-    
-    _interstitialAdsResultCallback = nullptr;
+    [InterstitialManager destroy];    
 }
 
 void CocosAds::addInterstitialAdListener(const std::function<void (CocosAdsResultCode, std::string)> &callback)
@@ -173,6 +171,10 @@ void CocosAdsImpl::interstitialAdsResult(CocosAdsResultCode code, std::string re
     if (_cocosads->_interstitialAdsResultCallback)
     {
         _cocosads->_interstitialAdsResultCallback(code, result);
+        if (code == kAdsDismissScreen)
+        {
+            _cocosads->hideInterstitial();
+        }
     }
 }
 

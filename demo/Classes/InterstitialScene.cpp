@@ -38,9 +38,9 @@ bool Interstitial::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto labelBack = MenuItemFont::create("返回", [](Ref*){
-        //销毁广告
+
+        //移除广告监听（可选）
         CocosAds::getInstance()->removeInterstitialAdListener();
-        CocosAds::getInstance()->hideInterstitial();
         
         Director::getInstance()->replaceScene(HelloWorld::createScene());
         
@@ -64,7 +64,7 @@ bool Interstitial::init()
     CocosAds::getInstance()->setInterstitialCloseMode(CocosAds::CLOSE_MODE_COUNTDOWN_WITH_CLOSE);
     //设置显示时间（可选）
     CocosAds::getInstance()->setInterstitialDisplayTime(7);
-    //广告回调（可选）
+    //添加广告监听（可选）
     CocosAds::getInstance()->addInterstitialAdListener([](CocosAdsResultCode code, std::string result){
         switch (code) {
             case kAdsReceiveSuccess:

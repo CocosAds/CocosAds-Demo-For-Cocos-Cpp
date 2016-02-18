@@ -124,8 +124,6 @@ void CocosAds::hideInterstitial()
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
     }
-    
-    _interstitialAdsResultCallback = nullptr;
 }
 
 void CocosAds::addInterstitialAdListener(const std::function<void (CocosAdsResultCode, std::string)> &callback)
@@ -216,6 +214,11 @@ void CocosAdsImpl::interstitialAdsResult(CocosAdsResultCode code, std::string re
     if (_cocosads->_interstitialAdsResultCallback)
     {
         _cocosads->_interstitialAdsResultCallback(code, result);
+        
+        if (code == kAdsDismissScreen)
+        {
+            _cocosads->hideInterstitial();
+        }
     }
 }
 

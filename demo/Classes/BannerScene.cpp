@@ -38,8 +38,10 @@ bool Banner::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto labelBack = MenuItemFont::create("返回", [](Ref*){
-        //销毁广告
+
+        //移除广告监听（可选）
         CocosAds::getInstance()->removeBannerAdListener();
+        //隐藏广告（可选）
         CocosAds::getInstance()->hideBanner();
         
         Director::getInstance()->replaceScene(HelloWorld::createScene());
@@ -60,7 +62,7 @@ bool Banner::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
-    //回调（可选）
+    //添加广告监听（可选）
     CocosAds::getInstance()->addBannerAdListener([](CocosAdsResultCode code, std::string result){
         switch (code) {
             case kAdsReceiveSuccess:
