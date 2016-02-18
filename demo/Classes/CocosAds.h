@@ -40,7 +40,9 @@ public:
     
     void hideBanner();
     
-    void setOnBannerAdsResult(const std::function<void(CocosAdsResultCode code, std::string result)> &callback);
+    void addBannerAdListener(const std::function<void(CocosAdsResultCode code, std::string result)> &callback);
+
+    void removeBannerAdListener();
     
     //插屏广告
     void setInterstitialCloseMode(int closeMode);
@@ -51,7 +53,9 @@ public:
     
     void hideInterstitial();
     
-    void setOnInterstitialAdsResult(const std::function<void(CocosAdsResultCode code, std::string result)> &callback);
+    void addInterstitialAdListener(const std::function<void(CocosAdsResultCode code, std::string result)> &callback);
+    
+    void removeInterstitialAdListener();
     
 private:
     

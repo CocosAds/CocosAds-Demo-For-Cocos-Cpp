@@ -39,6 +39,7 @@ bool Banner::init()
     
     auto labelBack = MenuItemFont::create("返回", [](Ref*){
         //销毁广告
+        CocosAds::getInstance()->removeBannerAdListener();
         CocosAds::getInstance()->hideBanner();
         
         Director::getInstance()->replaceScene(HelloWorld::createScene());
@@ -60,7 +61,7 @@ bool Banner::init()
     this->addChild(sprite, 0);
     
     //回调（可选）
-    CocosAds::getInstance()->setOnBannerAdsResult([](CocosAdsResultCode code, std::string result){
+    CocosAds::getInstance()->addBannerAdListener([](CocosAdsResultCode code, std::string result){
         switch (code) {
             case kAdsReceiveSuccess:
                 log("CocosAdsDemo: %s", result.c_str());

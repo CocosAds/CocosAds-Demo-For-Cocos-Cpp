@@ -100,13 +100,16 @@ void CocosAds::hideBanner()
         [_banner destroy];
         _banner = nullptr;
     }
-    
-    _bannerAdsResultCallback = nullptr;
 }
 
-void CocosAds::setOnBannerAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
+void CocosAds::addBannerAdListener(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
     _bannerAdsResultCallback = callback;
+}
+
+void CocosAds::removeBannerAdListener()
+{
+    _bannerAdsResultCallback = nullptr;
 }
 
 #pragma mark - Interstitial
@@ -138,9 +141,14 @@ void CocosAds::hideInterstitial()
     _interstitialAdsResultCallback = nullptr;
 }
 
-void CocosAds::setOnInterstitialAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
+void CocosAds::addInterstitialAdListener(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
     _interstitialAdsResultCallback = callback;
+}
+
+void CocosAds::removeInterstitialAdListener()
+{
+    _interstitialAdsResultCallback = nullptr;
 }
 
 #pragma mark - CocosAdsImpl

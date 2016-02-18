@@ -68,14 +68,17 @@ void CocosAds::hideBanner()
     {
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
-    }
-    
-    _bannerAdsResultCallback = nullptr;
+    }    
 }
 
-void CocosAds::setOnBannerAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
+void CocosAds::addBannerAdListener(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
     _bannerAdsResultCallback = callback;
+}
+
+void CocosAds::removeBannerAdListener()
+{
+    _bannerAdsResultCallback = nullptr;
 }
 
 
@@ -125,11 +128,15 @@ void CocosAds::hideInterstitial()
     _interstitialAdsResultCallback = nullptr;
 }
 
-void CocosAds::setOnInterstitialAdsResult(const std::function<void (CocosAdsResultCode, std::string)> &callback)
+void CocosAds::addInterstitialAdListener(const std::function<void (CocosAdsResultCode, std::string)> &callback)
 {
     _interstitialAdsResultCallback = callback;
 }
 
+void CocosAds::removeInterstitialAdListener()
+{
+    _interstitialAdsResultCallback = nullptr;
+}
 
 #pragma mark - JNI
 
