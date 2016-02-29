@@ -2,6 +2,12 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+### For CocosAds
+include $(CLEAR_VARS)
+LOCAL_MODULE := libad
+LOCAL_SRC_FILES := prebuilt/libad.so
+include $(PREBUILT_SHARED_LIBRARY)
+
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/external)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/cocos)
