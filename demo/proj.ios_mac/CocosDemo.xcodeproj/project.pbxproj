@@ -66,13 +66,11 @@
 		850FC2A41C71BC4D00719D8D /* InterstitialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2A11C71BC4D00719D8D /* InterstitialScene.cpp */; };
 		850FC2B01C71DEBC00719D8D /* CocosAdsRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */; };
 		850FC2B11C71DEBC00719D8D /* CocosAdsRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */; };
-		850FC2B31C71DEBC00719D8D /* libCocosAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2AE1C71DEBC00719D8D /* libCocosAds.a */; };
 		850FC2B51C71DF0000719D8D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2B41C71DF0000719D8D /* CoreTelephony.framework */; };
 		850FC2B71C71DF0B00719D8D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2B61C71DF0B00719D8D /* AdSupport.framework */; };
 		850FC2B91C71DF1300719D8D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2B81C71DF1300719D8D /* StoreKit.framework */; };
 		850FC2BB1C71DF2000719D8D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850FC2BA1C71DF2000719D8D /* SystemConfiguration.framework */; };
 		850FC2C61C72D5F600719D8D /* CocosAds-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2C41C72D5F600719D8D /* CocosAds-ios.mm */; };
-		850FC2C71C72D5F600719D8D /* CocosAds-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 850FC2C41C72D5F600719D8D /* CocosAds-ios.mm */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -233,7 +231,6 @@
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
 				5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */,
 				5087E76317EB910900C73F5D /* Foundation.framework in Frameworks */,
-				850FC2B31C71DEBC00719D8D /* libCocosAds.a in Frameworks */,
 				5087E76817EB910900C73F5D /* QuartzCore.framework in Frameworks */,
 				5087E76917EB910900C73F5D /* OpenAL.framework in Frameworks */,
 				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
@@ -574,7 +571,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				850FC2A41C71BC4D00719D8D /* InterstitialScene.cpp in Sources */,
-				850FC2C71C72D5F600719D8D /* CocosAds-ios.mm in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,

@@ -39,10 +39,14 @@ bool Banner::init()
     
     auto labelBack = MenuItemFont::create("返回", [](Ref*){
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        
         //移除广告监听（可选）
         CocosAds::getInstance()->removeBannerAdListener();
         //隐藏广告（可选）
         CocosAds::getInstance()->hideBanner();
+        
+#endif
         
         Director::getInstance()->replaceScene(HelloWorld::createScene());
         
@@ -61,6 +65,8 @@ bool Banner::init()
     
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
     //展示广告(必选)
     const char* placementID = "";
@@ -90,6 +96,8 @@ bool Banner::init()
                 break;
         }
     });
+    
+#endif
     
     return true;
 }

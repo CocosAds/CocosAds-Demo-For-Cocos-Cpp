@@ -80,6 +80,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
     // 初始化 CocosAds SDK
     const char* publisherID = "";
@@ -89,6 +91,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     publisherID = "855595180-47D2E7-2298-EAA9-6E1886A1F";
 #endif
     CocosAds::getInstance()->init(publisherID);
+    
+#endif
     
     return true;
 }
