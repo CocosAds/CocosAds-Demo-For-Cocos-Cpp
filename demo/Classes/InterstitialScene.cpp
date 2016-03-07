@@ -66,15 +66,6 @@ bool Interstitial::init()
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
-    //展示广告（必选）
-    const char* placementID = "";
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    placementID = "855310162o2l2xm";
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    placementID = "855595180o2lox4";
-#endif
-    CocosAds::getInstance()->showInterstitial(placementID);
-    
     //设置显示模式（可选）
     CocosAds::getInstance()->setInterstitialCloseMode(CocosAds::CLOSE_MODE_COUNTDOWN_WITH_CLOSE);
     //设置显示时间（可选）
@@ -98,6 +89,15 @@ bool Interstitial::init()
                 break;
         }
     });
+    
+    //展示广告（必选）
+    const char* placementID = "";
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    placementID = "855310162o2l2xm";
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    placementID = "855595180o2lox4";
+#endif
+    CocosAds::getInstance()->showInterstitial(placementID);
     
 #endif
     

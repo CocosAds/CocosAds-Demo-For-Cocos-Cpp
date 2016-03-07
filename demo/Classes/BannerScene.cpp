@@ -68,15 +68,6 @@ bool Banner::init()
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
-    //展示广告(必选)
-    const char* placementID = "";
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    placementID = "855310162o2l2x4";
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    placementID = "855595180o2lowu";
-#endif
-    CocosAds::getInstance()->showBanner(placementID);
-    
     //添加广告监听（可选）
     CocosAds::getInstance()->addBannerAdListener([](CocosAdsResultCode code, std::string result){
         switch (code) {
@@ -96,6 +87,16 @@ bool Banner::init()
                 break;
         }
     });
+    
+    
+    //展示广告(必选)
+    const char* placementID = "";
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    placementID = "855310162o2l2x4";
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    placementID = "855595180o2lowu";
+#endif
+    CocosAds::getInstance()->showBanner(placementID);
     
 #endif
     

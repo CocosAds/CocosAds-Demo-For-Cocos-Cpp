@@ -10,10 +10,13 @@
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #import <Foundation/Foundation.h>
+#include <string>
+
 #include "CocosAdsManager.h"
 #include "Banner.h"
 #include "InterstitialManager.h"
 
+#include "cocos2d.h"
 #include "platform/ios/CCEAGLView-ios.h"
 
 using namespace cocos2d;
