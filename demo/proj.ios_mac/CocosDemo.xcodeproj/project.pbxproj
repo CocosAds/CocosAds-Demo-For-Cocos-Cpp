@@ -171,7 +171,6 @@
 		850FC29E1C71B69C00719D8D /* BannerScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScene.h; sourceTree = "<group>"; };
 		850FC2A11C71BC4D00719D8D /* InterstitialScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InterstitialScene.cpp; sourceTree = "<group>"; };
 		850FC2A21C71BC4D00719D8D /* InterstitialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialScene.h; sourceTree = "<group>"; };
-		850FC2A91C71DEBC00719D8D /* ADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADRequest.h; path = ../libCocosAds/ADRequest.h; sourceTree = "<group>"; };
 		850FC2AA1C71DEBC00719D8D /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Banner.h; path = ../libCocosAds/Banner.h; sourceTree = "<group>"; };
 		850FC2AB1C71DEBC00719D8D /* CocosAdsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocosAdsManager.h; path = ../libCocosAds/CocosAdsManager.h; sourceTree = "<group>"; };
 		850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CocosAdsRes.bundle; path = ../libCocosAds/CocosAdsRes.bundle; sourceTree = "<group>"; };
@@ -401,7 +400,6 @@
 		850FC2A81C71DEAB00719D8D /* libCocosAds */ = {
 			isa = PBXGroup;
 			children = (
-				850FC2A91C71DEBC00719D8D /* ADRequest.h */,
 				850FC2AA1C71DEBC00719D8D /* Banner.h */,
 				850FC2AB1C71DEBC00719D8D /* CocosAdsManager.h */,
 				850FC2AC1C71DEBC00719D8D /* CocosAdsRes.bundle */,
